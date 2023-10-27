@@ -91,10 +91,10 @@ public class CourseStudentJoin
 
 
 # Логика фильтрации
-Пользователь в  **CoursesViewModel** выбирает курс.
-**CoursesViewModel** передаёт выбранный курс `SelectedCourse` в **MainWindowViewModel**  в свойство `SelectedCourse`.
-Код: `this.mainWindowViewModel.SelectedCourse = SelectedCourse;`
-
+Пользователь в  **CoursesViewModel** выбирает курс.  
+**CoursesViewModel** передаёт выбранный курс `SelectedCourse` в **MainWindowViewModel**  в свойство `SelectedCourse`.  
+Код: `this.mainWindowViewModel.SelectedCourse = SelectedCourse;`  
+  
 **CoursesViewModel**
 ```cs
 public Course SelectedCourse
@@ -112,8 +112,8 @@ public Course SelectedCourse
 ```
 
 
-**MainWindowViewModel** передаёт выбранный курс `selectedCourse` в `CoursesStudentsJoinViewModel.CourseFilter`.
-Код: `coursesStudentsJoinViewModel.CourseFilter = selectedCourse;`
+**MainWindowViewModel** передаёт выбранный курс `selectedCourse` в `CoursesStudentsJoinViewModel.CourseFilter`.  
+Код: `coursesStudentsJoinViewModel.CourseFilter = selectedCourse;`  
 
 **MainWindowViewModel**
 ```cs
@@ -137,7 +137,7 @@ public Course SelectedCourse
 ```
 ---- 
 
-Фильтруем `CoursesStudentsJoinViewModel`
+Фильтруем `CoursesStudentsJoinViewModel`  
 **CoursesStudentsJoinViewModel**
 ```cs
 #region Filter == === === === === ==
@@ -178,12 +178,12 @@ public ICollectionView CoursesStudentsJoinsView => _CoursesStudentsJoinsViewSour
 
 ---- 
 
-Возвращаемся в **MainWindowViewModel**.
-В **MainWindowViewModel** выполняем:
-    - в **CoursesStudentsJoinViewModel** фильтруем `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins`;
-    - из **CoursesStudentsJoinViewModel** получаем отфильтрованную коллекцию `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins`;
-В **CoursesStudentsJoinViewModel** свойство `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins` заполняется при создании **CoursesStudentsJoinViewModel** .
-
+Возвращаемся в **MainWindowViewModel**.  
+В **MainWindowViewModel** выполняем:  
+    - в **CoursesStudentsJoinViewModel** фильтруем `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins`;  
+    - из **CoursesStudentsJoinViewModel** получаем отфильтрованную коллекцию `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins`;  
+В **CoursesStudentsJoinViewModel** свойство `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins` заполняется при создании **CoursesStudentsJoinViewModel** .  
+  
 В **MainWindowViewModel** Код: 
 ```cs
 var cSJ = coursesStudentsJoinViewModel.GetCoursesStudentsJoin(selectedCourse);
@@ -246,17 +246,17 @@ public ObservableCollection<CourseStudentJoin> GetCoursesStudentsJoin(Course cou
 }
 ```
 
-Передаём отфильтрованный `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins` в **StudentsViewModel**
-Кодв **MainWindowViewModel**:  `this.studentsViewModel.LoadDataUnion(cSJ);`
-
-В **StudentsViewModel**  
-    -    метод `LoadDataUnion(ObservableCollection<CourseStudentJoin> courseStudentJoin)`
-исключает из `ObservableCollection<Student> Students` студунтов. которые содержаться в `ObservableCollection<CourseStudentJoin> courseStudentJoin`
-    -    результат помещает в `ObservableCollection<Student> StudentsView`
-    - `ObservableCollection<Student> StudentsView` отображаем в представлении **StudentsView.xaml**
-
-`ObservableCollection<Student> Students` - хранит в себе всех студентов. Заполнется при создании **StudentsViewModel** .
-
+Передаём отфильтрованный `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins` в **StudentsViewModel**  
+Кодв **MainWindowViewModel**:  `this.studentsViewModel.LoadDataUnion(cSJ);`  
+  
+В **StudentsViewModel**    
+    -    метод `LoadDataUnion(ObservableCollection<CourseStudentJoin> courseStudentJoin)` 
+исключает из `ObservableCollection<Student> Students` студунтов. которые содержаться в `ObservableCollection<CourseStudentJoin> courseStudentJoin`  
+    -    результат помещает в `ObservableCollection<Student> StudentsView`  
+    - `ObservableCollection<Student> StudentsView` отображаем в представлении **StudentsView.xaml**  
+  
+`ObservableCollection<Student> Students` - хранит в себе всех студентов. Заполнется при создании **StudentsViewModel** . 
+  
 **MainWindowViewModel**
 ```cs
 public Course SelectedCourse
@@ -277,7 +277,7 @@ public Course SelectedCourse
     }
 }
 ```
-
+  
 **StudentsViewModel**
 ```cs
 // Students. Все студенты. Заполнется при создании **StudentsViewModel**. 
