@@ -91,9 +91,9 @@ public class CourseStudentJoin
 
 
 # Логика фильтрации
-
-**CoursesViewModel** передаёт выбранный курс `SelectedCourse` в `MainWindowViewModel.SelectedCourse`.
-`this.mainWindowViewModel.SelectedCourse = SelectedCourse;`
+Пользователь в  **CoursesViewModel** выбирает курс.
+**CoursesViewModel** передаёт выбранный курс `SelectedCourse` в **MainWindowViewModel**  в свойство `SelectedCourse`.
+Код: `this.mainWindowViewModel.SelectedCourse = SelectedCourse;`
 
 **CoursesViewModel**
 ```cs
@@ -113,7 +113,7 @@ public Course SelectedCourse
 
 
 **MainWindowViewModel** передаёт выбранный курс `selectedCourse` в `CoursesStudentsJoinViewModel.CourseFilter`.
-`coursesStudentsJoinViewModel.CourseFilter = selectedCourse;`
+Код: `coursesStudentsJoinViewModel.CourseFilter = selectedCourse;`
 
 **MainWindowViewModel**
 ```cs
@@ -179,11 +179,75 @@ public ICollectionView CoursesStudentsJoinsView => _CoursesStudentsJoinsViewSour
 ---- 
 
 Возвращаемся в **MainWindowViewModel**.
-Получаем отфильтрованный `CoursesStudentsJoinViewModel`
-`var cSJ = coursesStudentsJoinViewModel.GetCoursesStudentsJoin(selectedCourse);`
+В **MainWindowViewModel** выполняем:
+    - в **CoursesStudentsJoinViewModel** фильтруем `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins`;
+    - из **CoursesStudentsJoinViewModel** получаем отфильтрованную коллекцию `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins`;
+В **CoursesStudentsJoinViewModel** свойство `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins` заполняется при создании **CoursesStudentsJoinViewModel** .
 
-Передаём отфильтрованный `CoursesStudentsJoinViewModel` в **StudentsViewModel**
-`this.studentsViewModel.LoadDataUnion(cSJ);`
+В **MainWindowViewModel** Код: 
+```cs
+var cSJ = coursesStudentsJoinViewModel.GetCoursesStudentsJoin(selectedCourse);
+this.studentsViewModel.LoadDataUnion(cSJ);
+```
+
+
+**CoursesStudentsJoinViewModel**
+```cs
+// CoursesStudentsJoins
+private ObservableCollection<CourseStudentJoin> _coursesStudentsJoin;
+
+public ObservableCollection<CourseStudentJoin> CoursesStudentsJoins
+{
+    get { return _coursesStudentsJoin; }
+    set
+    {
+        _coursesStudentsJoin = value;
+
+        _CoursesStudentsJoinsViewSource = new CollectionViewSource();
+        _CoursesStudentsJoinsViewSource.Source = value;
+        _CoursesStudentsJoinsViewSource.Filter += OnCoursesStudentsJoinsFilter;
+        _CoursesStudentsJoinsViewSource.View.Refresh(); // 
+
+        // RaisePropertyChanged(nameof(CoursesStudentsJoins));
+        // CoursesStudentsJoinsView
+        RaisePropertyChanged(nameof(CoursesStudentsJoinsView));
+    }
+}
+
+public ObservableCollection<CourseStudentJoin> GetCoursesStudentsJoin(Course course)
+{
+    int IdCourse = course.IdCourse;
+
+    var res = CoursesStudentsJoins.Where(cSJ => cSJ.IdCourse == IdCourse).ToList();
+    var coursesStudentsJoins = new ObservableCollection<CourseStudentJoin>(res);
+
+    return coursesStudentsJoins;
+}
+```
+
+**MainWindowViewModel**
+```cs
+ public Course SelectedCourse
+{
+    get { return selectedCourse; }
+    set
+    {
+        selectedCourse = value;
+
+        // Установить критерий фильтрации для `CoursesStudentsJoinViewModel`
+        coursesStudentsJoinViewModel.CourseFilter = selectedCourse;
+
+        // Установить критерий фильтрации для `StudentsViewModel`
+        var cSJ = coursesStudentsJoinViewModel.GetCoursesStudentsJoin(selectedCourse);
+        this.studentsViewModel.LoadDataUnion(cSJ);
+
+        RaisePropertyChanged(nameof(SelectedCourse));
+    }
+}
+```
+
+Передаём отфильтрованный `ObservableCollection<CourseStudentJoin> CoursesStudentsJoins` в **StudentsViewModel**
+Кодв **MainWindowViewModel**:  `this.studentsViewModel.LoadDataUnion(cSJ);`
 
 В **StudentsViewModel**  
     -    метод `LoadDataUnion(ObservableCollection<CourseStudentJoin> courseStudentJoin)`
