@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="FacultyWpfApp1ButtonStudents.Views.CoursesStudentsJoinView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FacultyWpfApp1ButtonStudents.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="400">
+    <DockPanel>        
+        <DataGrid Grid.Row="1" 
+                    ItemsSource="{Binding CoursesStudentsJoinsView}"                                              
+                    SelectedItem="{}"                          
+                    SelectedIndex="2"
+                    x:Name="MainDataGrid"                                         
+                    AutoGenerateColumns="False"                                  
+                    CanUserAddRows="True"
+                    GridLinesVisibility="Vertical"                                  
+                    VerticalGridLinesBrush="DarkGray"
+                    AlternatingRowBackground="LightGray">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="IdCourse" Binding="{Binding IdCourse}" Width="Auto"/>
+                <DataGridTextColumn Header="IdStudent" Binding="{Binding IdStudent}"/>
+                <DataGridTextColumn Header="NameStudent" Binding="{Binding NameStudent}"  Width="*"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="X" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="5,0"
+                                    Background="Transparent" BorderThickness="0" Foreground="Red"
+                                    FontWeight="Bold"
+                                    Command="{Binding DataContext.TestCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>
