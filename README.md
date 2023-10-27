@@ -16,26 +16,22 @@
 **CourseStudentJoin** связывает в одну таблицу **CourseStudent** и **Student** поле **NameStudent**
 
 
-Планируемая логика приложения:
-     - Пользователь добавляет курсы **Course** в **CoursesView**;
-     - Пользователь выбирает **Course** в **CoursesView**;
-     - Пользователь добавляет в **CoursesStudentsJoinView** студента **Student** из **StudentsView**;
-        - т.е.
-            - Пользователь в **StudentsView** выбирает студента **Student**;
-            - Пользователь в **StudentsView** нажимает кнопку **AddInCoursesStudentsJoinView**;
-            - Приложение удаляет студента **Student** из **StudentsView** и добавлет студента в **CoursesStudentsJoinView**.
-
-**Student** с id от 11 до 21 исключены  из **StudentsView**
+Планируемая логика приложения:  
+     - Пользователь добавляет курсы **Course** в **CoursesView**;  
+     - Пользователь выбирает **Course** в **CoursesView**;  
+     - Пользователь добавляет в **CoursesStudentsJoinView** студента **Student** из **StudentsView**;  
+        - т.е.  
+            - Пользователь в **StudentsView** выбирает студента **Student**;  
+            - Пользователь в **StudentsView** нажимает кнопку **AddInCoursesStudentsJoinView**;  
+            - Приложение удаляет студента **Student** из **StudentsView** и добавлет студента в **CoursesStudentsJoinView**.  
+  
+**Student** с id от 11 до 21 исключены  из **StudentsView**  
 потому, что уже хранятся в **CoursesStudentsJoinView** 
-**Student** with id from 11 to 21 are excluded from **StudentsView**
-because they are already stored in **CoursesStudentsJoinView**
-
-
-Модель:
-  - Course.cs
-  - Student.cs
-  - CourseStudent.cs
-  - CourseStudentJoin.cs
+Модель:  
+  - Course.cs  
+  - Student.cs  
+  - CourseStudent.cs  
+  - CourseStudentJoin.cs 
 
 ![image](https://github.com/jhon65496/FacultyWpfApp1ButtonStudents/assets/128128859/6a0a1b40-d370-4347-a319-7f1e32980ee8)
 
