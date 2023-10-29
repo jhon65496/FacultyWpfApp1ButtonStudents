@@ -40,5 +40,13 @@ namespace FacultyWpfApp1ButtonStudents.Common
             }
         }
 
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> collection, Action<T> action)
+        {
+            foreach (var item in collection)
+            {
+                action(item);
+                yield return item;
+            }
+        }
     }
 }
