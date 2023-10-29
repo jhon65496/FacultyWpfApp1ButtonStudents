@@ -12,12 +12,14 @@ namespace FacultyWpfApp1ButtonStudents.Views
     /// </summary>
     public partial class SubjectsView : UserControl
     {
-        private readonly ICollectionView students;
+        private readonly ICollectionView subjectStudents;
+        private readonly ICollectionView noSubjectStudents;
         private readonly MainWindowViewModel mainVM;
         public SubjectsView()
         {
             mainVM = ((MainWindowViewModel)FindResource(nameof(mainVM)));
-            students = ((CollectionViewSource)FindResource(nameof(students))).View;
+            subjectStudents = ((CollectionViewSource)FindResource(nameof(subjectStudents))).View;
+            noSubjectStudents = ((CollectionViewSource)FindResource(nameof(noSubjectStudents))).View;
 
             InitializeComponent();
         }
@@ -26,13 +28,17 @@ namespace FacultyWpfApp1ButtonStudents.Views
         {
             if (mainVM.SelectedSubject is not Subject subject)
             {
-                students.Filter = null;
+                subjectStudents.Filter = _ => false;
+                noSubjectStudents.Filter = null;
             }
             else
             {
-                students.Filter = obj =>
+                subjectStudents.Filter = obj =>
                         obj is Student student &&
                         student.Subjects.Any(sbj => sbj.Id == subject.Id);
+                noSubjectStudents.Filter = obj =>
+                        obj is Student student &&
+                        student.Subjects.All(sbj => sbj.Id != subject.Id);
             }
         }
     }

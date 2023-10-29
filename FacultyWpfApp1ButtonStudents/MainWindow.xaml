@@ -45,9 +45,17 @@
                     <!--  GridSplitter Горзонтальный -->
                     <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
                     <!--  GridSplitter Горзонтальный -->
-                    <GroupBox Grid.Row="2" Header="SubjectsStudentsJoinView">
-                        <ContentControl Content="{Binding SubjectsStudentsJoinView}"/>
-                    </GroupBox>
+    <GroupBox Grid.Row="2" Header="SubjectsStudentsJoinView">
+        <!--<ContentControl Content="{Binding SubjectsStudentsJoinView}"/>-->
+        <DataGrid ItemsSource="{Binding Source={StaticResource subjectStudents}}"
+                    AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </GroupBox>
 
                 </Grid>
 

@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <!--<DockPanel>-->
     <DataGrid Grid.Row="1" 
-                    ItemsSource="{Binding Source={StaticResource students}}"                                              
+                    ItemsSource="{Binding Source={StaticResource noSubjectStudents}}"                                              
                     SelectedItem="{Binding SelectedStudent}"                          
                     SelectedIndex="2"
                     x:Name="MainDataGrid"                                         

@@ -6,7 +6,9 @@
              StartupUri="/MainWindow.xaml">
     <Application.Resources>
         <vms:MainWindowViewModel x:Key="mainVM"/>
-        <CollectionViewSource x:Key="students"
+        <CollectionViewSource x:Key="subjectStudents"
+                              Source="{Binding Students, Source={StaticResource mainVM}}"/>
+        <CollectionViewSource x:Key="noSubjectStudents"
                               Source="{Binding Students, Source={StaticResource mainVM}}"/>
         <CollectionViewSource x:Key="subjects"
                               Source="{Binding Subjects, Source={StaticResource mainVM}}"/>
