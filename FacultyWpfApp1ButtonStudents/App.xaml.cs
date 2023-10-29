@@ -16,14 +16,14 @@ namespace FacultyWpfApp1ButtonStudentsStudents
     public partial class App : Application
     {
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    base.OnStartup(e);
 
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
-            MainWindow mwindow = new MainWindow();
-            mwindow.DataContext = mainWindowViewModel;
-            mwindow.Show();
-        }
+        //    MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+        //    MainWindow mwindow = new MainWindow();
+        //    mwindow.DataContext = mainWindowViewModel;
+        //    mwindow.Show();
+        //}
     }
 }

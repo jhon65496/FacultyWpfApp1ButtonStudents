@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FacultyWpfApp1ButtonStudents.Views"
              mc:Ignorable="d"              
-             d:DesignHeight="450" d:DesignWidth="400">
+             d:DesignHeight="450" d:DesignWidth="400"
+             xmlns:vm ="clr-namespace:FacultyWpfApp1ButtonStudents.ViewModels">
+    <d:UserControl.DataContext>
+        <vm:CoursesViewModel/>
+    </d:UserControl.DataContext>
     
-    <DockPanel>        
+    <!--<DockPanel>-->        
         <DataGrid Grid.Row="1" 
                     ItemsSource="{Binding Courses}"                                              
                     SelectedItem="{Binding SelectedCourse}"                          
@@ -24,5 +28,5 @@
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}"  Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-    </DockPanel>
+    <!--</DockPanel>-->
 </UserControl>

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FacultyWpfApp1ButtonStudents.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FacultyWpfApp1ButtonStudents.Models;
 
 
 
@@ -12,114 +9,178 @@ namespace FacultyWpfApp1ButtonStudents.Data
 {
     public class DataContextApp
     {
+        //private ObservableCollection<Course> _courses;
+
+        public ObservableCollection<Course> Courses { get; set; }
+        //{
+        //    get { return _courses; }
+        //    set { _courses = value; }
+        //}
+
+
+        //private ObservableCollection<Student> _students;
+
+        public ObservableCollection<Student> Students { get; set; }
+        //{
+        //    get { return _students; }
+        //    set { _students = value; }
+        //}
+
+
+        //private ObservableCollection<CourseStudent> _courseStudents;
+
+        public ObservableCollection<CourseStudent> CourseStudents { get; set; }
+        //{
+        //    get { return _courseStudents; }
+        //    set { _courseStudents = value; }
+        //}
+
+        //private ObservableCollection<CourseStudentJoin> _courseStudentJoin;
+
+        public ObservableCollection<CourseStudentJoin> CoursesStudentsJoins { get; set; }
+        //{
+        //    get { return _courseStudentJoin; }
+        //    set { _courseStudentJoin = value; }
+        //}
         public DataContextApp()
         {
             GenerateDataCourses();
             GenerateDataStudents();
             GenerateCourseStudent();
             GenerateCourseStudentsJoin();
+
+            Include();
         }
 
-
-        private ObservableCollection<Course> _courses;
-
-        public ObservableCollection<Course> Courses
+        private void Include()
         {
-            get { return _courses; }
-            set { _courses = value; }
+            foreach (var student in Students)
+            {
+                int studentId = student.Id;
+                student.Courses = new ObservableCollection<Course>
+                (
+                    CourseStudents
+                    .Where(cs => cs.StudentId == studentId)
+                    .Select(cs => Courses.Single(crs => crs.Id == cs.CourseId))
+                );
+            }
+            foreach (var course in Courses)
+            {
+                int courceId = course.Id;
+                course.Students = new ObservableCollection<Student>
+                (
+                    CourseStudents
+                    .Where(cs => cs.CourseId == courceId)
+                    .Select(cs => Students.Single(std => std.Id == cs.StudentId))
+                );
+            }
         }
 
 
-        private ObservableCollection<Student> _students;
-
-        public ObservableCollection<Student> Students
-        {
-            get { return _students; }
-            set { _students = value; }
-        }
-
-
-        private ObservableCollection<CourseStudent> _courseStudents;
-
-        public ObservableCollection<CourseStudent> CourseStudents
-        {
-            get { return _courseStudents; }
-            set { _courseStudents = value; }
-        }
-
-
-        private ObservableCollection<CourseStudentJoin> _courseStudentJoin;
-
-        public ObservableCollection<CourseStudentJoin> CoursesStudentsJoins
-        {
-            get { return _courseStudentJoin; }
-            set { _courseStudentJoin = value; }
-        }
 
 
         // ---- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
         public void GenerateDataCourses()
         {
-            Courses = new ObservableCollection<Course>();
-            for (int i = 1; i < 11; i++)
-            {
-                var сourse = new Course()
+            Courses = new ObservableCollection<Course>
+            (
+                Enumerable.Range(1, 10).Select(i => new Course()
                 {
-                    IdCourse = i,
-                    NameCourse = $"NameCourse-{i}",
+                    Id = i,
+                    Name = $"NameCourse-{i}",
                     Description = $"DescriptionCourses-{i}"
-                };
-                Courses.Add(сourse);
-            }
+                })
+            );
+            //for (int i = 1; i < 11; i++)
+            //{
+            //    var сourse = new Course()
+            //    {
+            //        IdCourse = i,
+            //        NameCourse = $"NameCourse-{i}",
+            //        Description = $"DescriptionCourses-{i}"
+            //    };
+            //    Courses.Add(сourse);
+            //}
         }
 
 
         public void GenerateDataStudents()
         {
-            Students = new ObservableCollection<Student>();
-            for (int i = 1; i < 101; i++)
-            {
-                var provider = new Student()
+            Students = new ObservableCollection<Student>
+            (
+                Enumerable.Range(1, 100).Select(i => new Student()
                 {
-                    IdStudent = i,
-                    NameStudent = $"NameStudent-{i}",
+                    Id = i,
+                    Name = $"NameStudent-{i}",
                     Description = $"DescriptionStudent-{i}"
-                };
-                Students.Add(provider);
-            }
+                }
+            ));
+            //for (int i = 1; i < 101; i++)
+            //{
+            //    var provider = new Student()
+            //    {
+            //        IdStudent = i,
+            //        NameStudent = $"NameStudent-{i}",
+            //        Description = $"DescriptionStudent-{i}"
+            //    };
+            //    Students.Add(provider);
+            //}
         }
 
 
         public void GenerateCourseStudent()
         {
-            CourseStudents = new ObservableCollection<CourseStudent>();
+            Random random = new Random(12345678); // Для повторяемости результата
 
-            int idCourseStudent      = 1;
-            int courseCurrentStudent = 1;
-            
+            // распределяем всех студентов по курсом псевдослучайным образом
+            CourseStudents = new ObservableCollection<CourseStudent>
+            (
+                Students
+                .SelectMany
+                (
+                    std => Courses
+                                 .OrderBy(crs => random.Next()) // Случайная сортировка предметов
+                                 .Take(random.Next(1, 6))       // Получение первых случайных предметов
+                                 .Select(sbj => (std, sbj))     // Получение сочетаний студент-предмет
+                )
+                .OrderBy(ss => random.Next())                   // Случайное перемешивание
+                .Select((ss, ind) => new CourseStudent()        // Получение сущностей сочетаний студент-предмет
+                                    {
+                                        IdCourseStudent = ind + 1,
+                                        CourseId = ss.sbj.Id,
+                                        StudentId = ss.std.Id
+                                    }
+                        )
+            );
 
-            for (int iC = 3; iC < 11; iC++)                                 // Course
-            {
-                int step = 10;
-                int courseFirstStudent = courseCurrentStudent;
-                int courseLastStudent = courseFirstStudent + step;
+            //int idCourseStudent = 1;
+            //int courseCurrentStudent = 1;
 
-                for (int iS = courseFirstStudent; iS < courseLastStudent; iS++) // Student
-                {
-                    // idIndexProvider         
-                    var indexProveder = new CourseStudent()
-                    {
-                        IdCourseStudent = idCourseStudent,
-                        IdCourse         = iC,
-                        IdStudent        = iS
-                    };
-                    CourseStudents.Add(indexProveder);
-                    idCourseStudent++;
-                }
-                courseCurrentStudent = courseLastStudent++;
-            }          
-           
+
+            //for (int iC = 3; iC < 11; iC++)                                 // Course
+            //{
+            //    int step = 10;
+            //    int courseFirstStudent = courseCurrentStudent;
+            //    int courseLastStudent = courseFirstStudent + step;
+
+            //    for (int iS = courseFirstStudent; iS < courseLastStudent; iS++) // Student
+            //    {
+            //        // idIndexProvider         
+            //        var indexProveder = new CourseStudent()
+            //        {
+            //            IdCourseStudent = idCourseStudent,
+            //            CourseId = iC,
+            //            StudentId = iS
+            //        };
+            //        CourseStudents.Add(indexProveder);
+            //        idCourseStudent++;
+            //    }
+            //    courseCurrentStudent = courseLastStudent++;
+            //}
+
         }
+
+
 
         public void AddCourseStudent()
         {
@@ -130,25 +191,36 @@ namespace FacultyWpfApp1ButtonStudents.Data
 
         public void GenerateCourseStudentsJoin()
         {
-            var CourseStudentsJoin = CourseStudents.Join(Students,
-                 cS => cS.IdStudent,
-                 s => s.IdStudent,
-                (cS, s) => new CourseStudentJoin
+            //var CourseStudentsJoin = CourseStudents.Join(Students,
+            //     cS => cS.StudentId,
+            //     s => s.Id,
+            //    (cS, s) => new CourseStudentJoin
+            //    {
+            //        IdCourseStudent = cS.IdCourseStudent,
+            //        IdCourse = cS.CourseId,
+            //        IdStudent = cS.StudentId,
+
+            //        NameStudent = s.Name
+            //    }).ToList();
+
+            CoursesStudentsJoins = new ObservableCollection<CourseStudentJoin>(CourseStudents.Select
+            (
+                cs =>
+                new CourseStudentJoin
                 {
-                    IdCourseStudent = cS.IdCourseStudent,
-                    IdCourse = cS.IdCourse,
-                    IdStudent = cS.IdStudent,
+                    IdCourseStudent = cs.IdCourseStudent,
+                    IdCourse = cs.CourseId,
+                    IdStudent = cs.StudentId,
 
-                    NameStudent = s.NameStudent
-                }).ToList();
-
-            CoursesStudentsJoins = new ObservableCollection<CourseStudentJoin>(CourseStudentsJoin);
+                    NameStudent = Students.Single(std => std.Id == cs.StudentId).Name
+                })
+            );
         }
 
         public void AddCourseStudentView()
         {
             // in development
         }
-        
+
     }
 }

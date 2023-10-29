@@ -74,7 +74,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
                     Debug.WriteLine($"SelectedCourse = null !!!");
                     return;
                 }
-                Debug.WriteLine($"SelectedCourse.NameCourse -- {SelectedStudent.NameStudent}");
+                Debug.WriteLine($"SelectedCourse.NameCourse -- {SelectedStudent.Name}");
                 // this.mainWindowViewModel.SelectedCourse = SelectedStudent;
                 RaisePropertyChanged(nameof(SelectedStudent));
             }
@@ -100,7 +100,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
 
             StudentsView = new ObservableCollection<Student>(Students
                                 .Where(cSJ => !courseStudentJoin
-                                    .Select(s => s.IdStudent).Contains(cSJ.IdStudent)));
+                                    .Select(s => s.IdStudent).Contains(cSJ.Id)));
 
             Debug.WriteLine($"\n\n=== === === ProvidersViewModel === === ===");
             Debug.WriteLine($"LoadDataUnion(...)  ");

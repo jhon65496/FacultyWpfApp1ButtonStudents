@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FacultyWpfApp1ButtonStudents.Models
 {
     public class Course
     {
-        public int IdCourse { get; set; }
+        public int Id { get; set; }
 
         public int Sort { get; set; }
 
-        public string NameCourse { get; set; }
+        public string Name { get; set; }
 
-        public string AliasCourse { get; set; }
+        public string Alias { get; set; }
         
         public string Description { get; set; }
         
+        // Навигационное свойство
+        public IList<Student> Students { get; set; }
     }
 }

@@ -11,18 +11,18 @@ using FacultyWpfApp1ButtonStudents.Models;
 
 namespace FacultyWpfApp1ButtonStudents.ViewModels
 {
-    class MainWindowViewModel : BaseVM
+    public class MainWindowViewModel : BaseVM
     {
         public DataContextApp dc;
 
         CoursesViewModel coursesViewModel;
         CoursesStudentsJoinViewModel coursesStudentsJoinViewModel;
         StudentsViewModel studentsViewModel;
-        
+
         public MainWindowViewModel()
         {
             this.dc = new DataContextApp();
-            
+
             // CoursesViewModel
             this.coursesViewModel = new CoursesViewModel(this);
             coursesViewModel.LoadDataTest();
@@ -68,14 +68,14 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
                     Debug.WriteLine($"SelectedCourse = null !!!");
                     return;
                 }
-                Debug.WriteLine($"SelectedCourse.NameCourse -- {selectedCourse.NameCourse}");
+                Debug.WriteLine($"SelectedCourse.NameCourse -- {selectedCourse.Name}");
 
                 // Установить критерий фильтрации для `CoursesStudentsJoinViewModel`
                 coursesStudentsJoinViewModel.CourseFilter = selectedCourse;
 
                 // Установить критерий фильтрации для `StudentsViewModel`
                 // var fdf = coursesStudentsJoinViewModel.
-                 var cSJ = coursesStudentsJoinViewModel.GetCoursesStudentsJoin(selectedCourse);
+                var cSJ = coursesStudentsJoinViewModel.GetCoursesStudentsJoin(selectedCourse);
                 this.studentsViewModel.LoadDataUnion(cSJ);
 
                 RaisePropertyChanged(nameof(SelectedCourse));

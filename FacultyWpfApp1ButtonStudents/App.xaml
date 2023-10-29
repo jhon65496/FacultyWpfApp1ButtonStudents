@@ -1,8 +1,10 @@
 ﻿<Application x:Class="FacultyWpfApp1ButtonStudentsStudents.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:FacultyWpfApp1ButtonStudentsStudents">
+             xmlns:local="clr-namespace:FacultyWpfApp1ButtonStudentsStudents"
+             xmlns:vms="clr-namespace:FacultyWpfApp1ButtonStudents.ViewModels"
+             StartupUri="/MainWindow.xaml">
     <Application.Resources>
-         
+        <vms:MainWindowViewModel x:Key="mainVM"/>
     </Application.Resources>
 </Application>

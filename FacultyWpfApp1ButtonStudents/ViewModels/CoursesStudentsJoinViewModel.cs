@@ -113,7 +113,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             if (CourseFilter == null) return;
 
             // Debug.WriteLine($"courseStudentJoin.IdCourse == CourseFilter.IdCourse -- {courseStudentJoin.IdCourse} = {CourseFilter.IdCourse} ");
-            if (courseStudentJoin.IdCourse == CourseFilter.IdCourse)
+            if (courseStudentJoin.IdCourse == CourseFilter.Id)
             {
                 e.Accepted = true;
                 //  Debug.WriteLine($"e.Accepted = true");
@@ -180,7 +180,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
 
         public ObservableCollection<CourseStudentJoin> GetCoursesStudentsJoin(Course course)
         {
-            int IdCourse = course.IdCourse;
+            int IdCourse = course.Id;
 
             var res = CoursesStudentsJoins.Where(cSJ => cSJ.IdCourse == IdCourse).ToList();
             var coursesStudentsJoins = new ObservableCollection<CourseStudentJoin>(res);

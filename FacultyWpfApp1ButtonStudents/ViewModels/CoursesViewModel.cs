@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 
 namespace FacultyWpfApp1ButtonStudents.ViewModels
-{   
-    class CoursesViewModel : BaseVM
+{
+    public class CoursesViewModel : BaseVM
     {
         MainWindowViewModel mainWindowViewModel;
 
@@ -31,11 +31,11 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
         public ObservableCollection<Course> Courses
         {
             get { return _courses; }
-            set 
-            { 
+            set
+            {
                 _courses = value;
-                
-                
+
+
 
                 RaisePropertyChanged(nameof(Courses));
             }
@@ -51,13 +51,13 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             set
             {
                 _selectedCourse = value;
-                Debug.WriteLine("\n\n === === === CoursesViewModel.SelectedCourse === === ===");                
+                Debug.WriteLine("\n\n === === === CoursesViewModel.SelectedCourse === === ===");
                 if (SelectedCourse == null)
                 {
                     Debug.WriteLine($"SelectedCourse = null !!!");
                     return;
                 }
-                Debug.WriteLine($"SelectedCourse.NameCourse -- {SelectedCourse.NameCourse}");
+                Debug.WriteLine($"SelectedCourse.NameCourse -- {SelectedCourse.Name}");
                 this.mainWindowViewModel.SelectedCourse = SelectedCourse;
                 RaisePropertyChanged(nameof(SelectedCourse));
             }
@@ -72,7 +72,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
 
             Debug.WriteLine($"\n\n === === === CoursesViewModel === === === ");
             Debug.WriteLine($"LoadDataTest()");
-            
+
         }
     }
 }
