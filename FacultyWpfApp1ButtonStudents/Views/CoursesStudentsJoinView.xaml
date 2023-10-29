@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FacultyWpfApp1ButtonStudents.Views.CoursesStudentsJoinView"
+﻿<UserControl x:Class="FacultyWpfApp1ButtonStudents.Views.SubjectsStudentsJoinView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
              d:DesignHeight="350" d:DesignWidth="400">
     <DockPanel>        
         <DataGrid Grid.Row="1" 
-                    ItemsSource="{Binding CoursesStudentsJoinsView}"                                              
+                    ItemsSource="{Binding SubjectsStudentsJoinsView}"                                              
                     SelectedItem="{}"                          
                     SelectedIndex="2"
                     x:Name="MainDataGrid"                                         
@@ -18,7 +18,7 @@
                     VerticalGridLinesBrush="DarkGray"
                     AlternatingRowBackground="LightGray">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="IdCourse" Binding="{Binding IdCourse}" Width="Auto"/>
+                <DataGridTextColumn Header="IdSubject" Binding="{Binding IdSubject}" Width="Auto"/>
                 <DataGridTextColumn Header="IdStudent" Binding="{Binding IdStudent}"/>
                 <DataGridTextColumn Header="NameStudent" Binding="{Binding NameStudent}"  Width="*"/>
                 <DataGridTemplateColumn>

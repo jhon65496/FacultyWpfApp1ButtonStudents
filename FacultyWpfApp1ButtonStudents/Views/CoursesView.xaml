@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FacultyWpfApp1ButtonStudents.Views.CoursesView"
+﻿<UserControl x:Class="FacultyWpfApp1ButtonStudents.Views.SubjectsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,13 +8,13 @@
              d:DesignHeight="450" d:DesignWidth="400"
              xmlns:vm ="clr-namespace:FacultyWpfApp1ButtonStudents.ViewModels">
     <d:UserControl.DataContext>
-        <vm:CoursesViewModel/>
+        <vm:SubjectsViewModel/>
     </d:UserControl.DataContext>
     
     <!--<DockPanel>-->        
         <DataGrid Grid.Row="1" 
-                    ItemsSource="{Binding Courses}"                                              
-                    SelectedItem="{Binding SelectedCourse}"                          
+                    ItemsSource="{Binding Subjects}"                                              
+                    SelectedItem="{Binding SelectedSubject}"                          
                     SelectedIndex="2"
                     x:Name="MainDataGrid"                                         
                     AutoGenerateColumns="False"                                  
@@ -23,8 +23,8 @@
                     VerticalGridLinesBrush="DarkGray"
                     AlternatingRowBackground="LightGray">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="IdCourse" Binding="{Binding IdCourse}" Width="Auto"/>
-                <DataGridTextColumn Header="NameCourse" Binding="{Binding NameCourse}"/>
+                <DataGridTextColumn Header="IdSubject" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="NameSubject" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}"  Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

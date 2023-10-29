@@ -1,41 +1,38 @@
 ﻿using FacultyWpfApp1ButtonStudents.Data;
 using FacultyWpfApp1ButtonStudents.Models;
-using System;
-using System.Collections.Generic;
+using Simplified;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace FacultyWpfApp1ButtonStudents.ViewModels
-{   
-    class StudentsViewModel : BaseVM
+{
+    public class StudentsViewModel : ViewModelBase
     {
         // MainWindowViewModel mainWindowViewModel;
 
-        DataContextApp dc;
+        private readonly DataContextApp dc;
         // ctor
         public StudentsViewModel(DataContextApp dc)
         {
-           //  this.mainWindowViewModel = mainWindowViewModel;
+            //  this.mainWindowViewModel = mainWindowViewModel;
 
             this.dc = dc;
         }
 
 
-        // Courses
+        // Subjects
         private ObservableCollection<Student> _students;
 
         public ObservableCollection<Student> Students
         {
             get { return _students; }
-            set 
+            set
             {
                 _students = value;
-                
-                
+
+
 
                 RaisePropertyChanged(nameof(Students));
             }
@@ -59,47 +56,47 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
 
 
 
-        // SelectedCourse
-        private Student _selectedStudent;
+        // SelectedSubject
+        //private Student _selectedStudent;
 
-        public Student SelectedStudent
-        {
-            get { return _selectedStudent; }
-            set
-            {
-                _selectedStudent = value;
-                Debug.WriteLine("\n\n === === === CoursesViewModel.SelectedCourse === === ===");                
-                if (SelectedStudent == null)
-                {
-                    Debug.WriteLine($"SelectedCourse = null !!!");
-                    return;
-                }
-                Debug.WriteLine($"SelectedCourse.NameCourse -- {SelectedStudent.Name}");
-                // this.mainWindowViewModel.SelectedCourse = SelectedStudent;
-                RaisePropertyChanged(nameof(SelectedStudent));
-            }
-        }
+        public Student SelectedStudent { get => Get<Student>(); set => Set(value); }
+        //{
+        //    get { return _selectedStudent; }
+        //    set
+        //    {
+        //        _selectedStudent = value;
+        //        Debug.WriteLine("\n\n === === === SubjectsViewModel.SelectedSubject === === ===");                
+        //        if (SelectedStudent == null)
+        //        {
+        //            Debug.WriteLine($"SelectedSubject = null !!!");
+        //            return;
+        //        }
+        //        Debug.WriteLine($"SelectedSubject.NameSubject -- {SelectedStudent.Name}");
+        //        // this.mainWindowViewModel.SelectedSubject = SelectedStudent;
+        //        RaisePropertyChanged(nameof(SelectedStudent));
+        //    }
+        //}
 
 
         public void LoadDataTest()
         {
             // СalculationIndexs = this.DataContextApp.СalculationIndexes;
             Students = dc.Students;
-            // return dc.Courses;
+            // return dc.Subjects;
 
-            Debug.WriteLine($"\n\n === === === CoursesViewModel === === === ");
+            Debug.WriteLine($"\n\n === === === SubjectsViewModel === === === ");
             Debug.WriteLine($"LoadDataTest()");
-            
+
         }
 
-        public void LoadDataUnion(ObservableCollection<CourseStudentJoin> courseStudentJoin)
+        public void LoadDataUnion(ObservableCollection<SubjectStudentJoin> subjectStudentJoin)
         {
 
-            // var result = Students.Where(cSJ => !courseStudentJoin
+            // var result = Students.Where(cSJ => !subjectStudentJoin
             //                     .Select(s => s.IdStudent).Contains(cSJ.IdStudent));
 
             StudentsView = new ObservableCollection<Student>(Students
-                                .Where(cSJ => !courseStudentJoin
+                                .Where(cSJ => !subjectStudentJoin
                                     .Select(s => s.IdStudent).Contains(cSJ.Id)));
 
             Debug.WriteLine($"\n\n=== === === ProvidersViewModel === === ===");

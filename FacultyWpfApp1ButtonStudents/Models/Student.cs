@@ -15,7 +15,7 @@ namespace FacultyWpfApp1ButtonStudents.Models
         public string Description { get; set; }
 
         // Навигационное свойство
-        public IList<Course> Courses { get; set; }
+        public IList<Subject> Subjects { get; set; }
         
     }
 }

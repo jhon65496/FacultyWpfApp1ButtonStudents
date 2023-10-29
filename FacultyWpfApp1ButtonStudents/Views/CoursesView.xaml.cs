@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace FacultyWpfApp1ButtonStudents.Views
 {
     /// <summary>
-    /// Логика взаимодействия для CoursesView.xaml
+    /// Логика взаимодействия для SubjectsView.xaml
     /// </summary>
-    public partial class CoursesView : UserControl
+    public partial class SubjectsView : UserControl
     {
-        public CoursesView()
+        public SubjectsView()
         {
             InitializeComponent();
         }

@@ -21,7 +21,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="AddInCoursesStudentsJoinView" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="5,0"
+                            <Button Content="AddInSubjectsStudentsJoinView" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="5,0"
                                     Background="Transparent" 
                                     BorderThickness="0" 
                                     Foreground="Green"

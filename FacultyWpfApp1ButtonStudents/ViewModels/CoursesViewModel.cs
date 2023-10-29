@@ -1,5 +1,6 @@
 ﻿using FacultyWpfApp1ButtonStudents.Data;
 using FacultyWpfApp1ButtonStudents.Models;
+using Simplified;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,66 +12,69 @@ using System.Threading.Tasks;
 
 namespace FacultyWpfApp1ButtonStudents.ViewModels
 {
-    public class CoursesViewModel : BaseVM
+    public class SubjectsViewModel : ViewModelBase
     {
-        MainWindowViewModel mainWindowViewModel;
+        private readonly MainWindowViewModel mainWindowViewModel;
 
-        DataContextApp dc;
+        private readonly DataContextApp dc;
         // ctor
-        public CoursesViewModel(MainWindowViewModel mainWindowViewModel)
+        public SubjectsViewModel(MainWindowViewModel mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
             this.dc = this.mainWindowViewModel.dc;
         }
 
+        // Конструктор Времени Разработки
+        public SubjectsViewModel() : this(new MainWindowViewModel()) { }
 
-        // Courses
-        private ObservableCollection<Course> _courses;
 
-        public ObservableCollection<Course> Courses
+        // Subjects
+        private ObservableCollection<Subject> _subjects;
+
+        public ObservableCollection<Subject> Subjects
         {
-            get { return _courses; }
+            get { return _subjects; }
             set
             {
-                _courses = value;
+                _subjects = value;
 
 
 
-                RaisePropertyChanged(nameof(Courses));
+                RaisePropertyChanged(nameof(Subjects));
             }
         }
 
 
-        // SelectedCourse
-        private Course _selectedCourse;
+        // SelectedSubject
+        //private Subject _selectedSubject;
 
-        public Course SelectedCourse
-        {
-            get { return _selectedCourse; }
-            set
-            {
-                _selectedCourse = value;
-                Debug.WriteLine("\n\n === === === CoursesViewModel.SelectedCourse === === ===");
-                if (SelectedCourse == null)
-                {
-                    Debug.WriteLine($"SelectedCourse = null !!!");
-                    return;
-                }
-                Debug.WriteLine($"SelectedCourse.NameCourse -- {SelectedCourse.Name}");
-                this.mainWindowViewModel.SelectedCourse = SelectedCourse;
-                RaisePropertyChanged(nameof(SelectedCourse));
-            }
-        }
+        public Subject SelectedSubject { get => Get<Subject>(); set => Set(value); }
+        //{
+        //    get { return _selectedSubject; }
+        //    set
+        //    {
+        //        _selectedSubject = value;
+        //        Debug.WriteLine("\n\n === === === SubjectsViewModel.SelectedSubject === === ===");
+        //        if (SelectedSubject == null)
+        //        {
+        //            Debug.WriteLine($"SelectedSubject = null !!!");
+        //            return;
+        //        }
+        //        Debug.WriteLine($"SelectedSubject.NameSubject -- {SelectedSubject.Name}");
+        //        this.mainWindowViewModel.SelectedSubject = SelectedSubject;
+        //        RaisePropertyChanged(nameof(SelectedSubject));
+        //    }
+        //}
 
 
         public void LoadDataTest()
         {
             // СalculationIndexs = this.DataContextApp.СalculationIndexes;
-            Courses = dc.Courses;
-            // return dc.Courses;
+            Subjects = dc.Subjects;
+            // return dc.Subjects;
 
-            Debug.WriteLine($"\n\n === === === CoursesViewModel === === === ");
+            Debug.WriteLine($"\n\n === === === SubjectsViewModel === === === ");
             Debug.WriteLine($"LoadDataTest()");
 
         }

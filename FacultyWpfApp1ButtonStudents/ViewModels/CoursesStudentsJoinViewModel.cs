@@ -1,119 +1,114 @@
-﻿using FacultyWpfApp1ButtonStudents.Commands;
-using FacultyWpfApp1ButtonStudents.Data;
+﻿using FacultyWpfApp1ButtonStudents.Data;
 using FacultyWpfApp1ButtonStudents.Models;
-using System;
-using System.Collections.Generic;
+using Simplified;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Input;
 
 namespace FacultyWpfApp1ButtonStudents.ViewModels
 {
-    class CoursesStudentsJoinViewModel : BaseVM
+    public class SubjectsStudentsJoinViewModel : ViewModelBase
     {
         MainWindowViewModel mainWindowViewModel;
 
         DataContextApp dc;
         // ctor
-        public CoursesStudentsJoinViewModel(MainWindowViewModel mainWindowViewModel)
+        public SubjectsStudentsJoinViewModel(MainWindowViewModel mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
             this.dc = this.mainWindowViewModel.dc;
         }
 
 
-        // CoursesStudentsJoins
-        private ObservableCollection<CourseStudentJoin> _coursesStudentsJoin;
+        // SubjectsStudentsJoins
+        private ObservableCollection<SubjectStudentJoin> _subjectsStudentsJoin;
 
-        public ObservableCollection<CourseStudentJoin> CoursesStudentsJoins
+        public ObservableCollection<SubjectStudentJoin> SubjectsStudentsJoins
         {
-            get { return _coursesStudentsJoin; }
+            get { return _subjectsStudentsJoin; }
             set
             {
-                _coursesStudentsJoin = value;
+                _subjectsStudentsJoin = value;
 
-                _CoursesStudentsJoinsViewSource = new CollectionViewSource();
-                _CoursesStudentsJoinsViewSource.Source = value;
-                _CoursesStudentsJoinsViewSource.Filter += OnCoursesStudentsJoinsFilter;
-                _CoursesStudentsJoinsViewSource.View.Refresh(); // 
+                _SubjectsStudentsJoinsViewSource = new CollectionViewSource();
+                _SubjectsStudentsJoinsViewSource.Source = value;
+                _SubjectsStudentsJoinsViewSource.Filter += OnSubjectsStudentsJoinsFilter;
+                _SubjectsStudentsJoinsViewSource.View.Refresh(); // 
 
-                // RaisePropertyChanged(nameof(CoursesStudentsJoins));
-                // CoursesStudentsJoinsView
-                RaisePropertyChanged(nameof(CoursesStudentsJoinsView));
+                // RaisePropertyChanged(nameof(SubjectsStudentsJoins));
+                // SubjectsStudentsJoinsView
+                RaisePropertyChanged(nameof(SubjectsStudentsJoinsView));
             }
         }
 
 
-        // SelectedCourse
-        private CourseStudentJoin _selectedCourseStudentJoin;
+        // SelectedSubject
+        //private SubjectStudentJoin _selectedSubjectStudentJoin;
 
-        public CourseStudentJoin SelectedCoursesStudents
-        {
-            get { return _selectedCourseStudentJoin; }
-            set
-            {
-                _selectedCourseStudentJoin = value;
-
-
-                //if (_selectedCourseStudentJoin == null) return;
-                //Debug.WriteLine($"--- --- --- --- --- --- --- --- ---");
-                //Debug.WriteLine($"IndexesViewModel--selectedIndexCalculation -- {_selectedCourseStudentJoin.NameCourse}");
-                //if (this._selectedCourseStudentJoin == null)
-                //{
-                //    Debug.WriteLine($"IndexesViewModel--selectedIndexCalculation -- managerIndexesViewModel = null\n");
-                //    return;
-                //}
-
-                // this.managerIndexesViewModel.SelectedIndexCalculation = selectedIndexCalculation;
+        public SubjectStudentJoin SelectedSubjectsStudents { get => Get<SubjectStudentJoin>(); set => Set(value); }
+        //{
+        //    get { return _selectedSubjectStudentJoin; }
+        //    set
+        //    {
+        //        _selectedSubjectStudentJoin = value;
 
 
-                RaisePropertyChanged(nameof(SelectedCoursesStudents));
-            }
-        }
+        //        //if (_selectedSubjectStudentJoin == null) return;
+        //        //Debug.WriteLine($"--- --- --- --- --- --- --- --- ---");
+        //        //Debug.WriteLine($"IndexesViewModel--selectedIndexCalculation -- {_selectedSubjectStudentJoin.NameSubject}");
+        //        //if (this._selectedSubjectStudentJoin == null)
+        //        //{
+        //        //    Debug.WriteLine($"IndexesViewModel--selectedIndexCalculation -- managerIndexesViewModel = null\n");
+        //        //    return;
+        //        //}
+
+        //        // this.managerIndexesViewModel.SelectedIndexCalculation = selectedIndexCalculation;
+
+
+        //        RaisePropertyChanged(nameof(SelectedSubjectsStudents));
+        //    }
+        //}
 
 
         #region Filter == === === === === ==
-        private Course _сourseFilter;
+        private Subject _сourseFilter;
 
-        public Course CourseFilter
+        public Subject SubjectFilter
         {
             get { return _сourseFilter; }
             set
             {
                 _сourseFilter = value;
 
-                // Debug.WriteLine("\n\n=== === === CoursesStudentsJoinViewModel === === ===");
+                // Debug.WriteLine("\n\n=== === === SubjectsStudentsJoinViewModel === === ===");
 
-                if (CourseFilter == null)
+                if (SubjectFilter == null)
                 {
-                    // Debug.WriteLine($"CourseFilter.NameCourse -- Null !!!!");
+                    // Debug.WriteLine($"SubjectFilter.NameSubject -- Null !!!!");
                     return;
                 }
-                // Debug.WriteLine($"CourseFilter.NameCourse -- {CourseFilter.NameCourse}");
+                // Debug.WriteLine($"SubjectFilter.NameSubject -- {SubjectFilter.NameSubject}");
 
-                _CoursesStudentsJoinsViewSource.View.Refresh();
+                _SubjectsStudentsJoinsViewSource.View.Refresh();
             }
         }
 
 
-        private void OnCoursesStudentsJoinsFilter(object sender, FilterEventArgs e)
+        private void OnSubjectsStudentsJoinsFilter(object sender, FilterEventArgs e)
         {
-            // Debug.WriteLine($"\n\n === === === CoursesStudentsJoinViewModel === === === ");
+            // Debug.WriteLine($"\n\n === === === SubjectsStudentsJoinViewModel === === === ");
             // Debug.WriteLine($"OnIndexProvidersFilter(object sender, FilterEventArgs e) ");
 
 
-            if (!(e.Item is CourseStudentJoin courseStudentJoin)) return;
+            if (!(e.Item is SubjectStudentJoin subjectStudentJoin)) return;
 
 
-            if (CourseFilter == null) return;
+            if (SubjectFilter == null) return;
 
-            // Debug.WriteLine($"courseStudentJoin.IdCourse == CourseFilter.IdCourse -- {courseStudentJoin.IdCourse} = {CourseFilter.IdCourse} ");
-            if (courseStudentJoin.IdCourse == CourseFilter.Id)
+            // Debug.WriteLine($"subjectStudentJoin.IdSubject == SubjectFilter.IdSubject -- {subjectStudentJoin.IdSubject} = {SubjectFilter.IdSubject} ");
+            if (subjectStudentJoin.IdSubject == SubjectFilter.Id)
             {
                 e.Accepted = true;
                 //  Debug.WriteLine($"e.Accepted = true");
@@ -126,29 +121,29 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
         }
 
         #region CollectionView
-        private CollectionViewSource _CoursesStudentsJoinsViewSource;
+        private CollectionViewSource _SubjectsStudentsJoinsViewSource;
 
-        public ICollectionView CoursesStudentsJoinsView => _CoursesStudentsJoinsViewSource?.View;
+        public ICollectionView SubjectsStudentsJoinsView => _SubjectsStudentsJoinsViewSource?.View;
         #endregion
 
         #endregion
 
         #region Command TestCommand - Тестовая команда
         /// <summary>Тестовая команда</summary>
-        private ICommand _TestCommand;
+        //private ICommand _TestCommand;
 
         /// <summary>Тестовая команда</summary>
-        public ICommand TestCommand
-        {
-            get
-            {
-                if (_TestCommand == null)
-                {
-                    _TestCommand = new LambdaCommand(OnTestCommandExecuted, CanTestCommandExecute);
-                }
-                return _TestCommand;
-            }
-        }
+        public RelayCommand TestCommand => GetCommand(OnTestCommandExecuted, CanTestCommandExecute);
+        //{
+        //    get
+        //    {
+        //        if (_TestCommand == null)
+        //        {
+        //            _TestCommand = new LambdaCommand(OnTestCommandExecuted, CanTestCommandExecute);
+        //        }
+        //        return _TestCommand;
+        //    }
+        //}
 
         /// <summary>Проверка возможности выполнения - Тестовая команда</summary>
         private bool CanTestCommandExecute(object p) => true;
@@ -159,9 +154,9 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             //var value = _UserDialog.GetStringValue("Введите строку", "123", "Значение по умолчанию");
             //_UserDialog.ShowInformation($"Введено: {value}", "123");
 
-            var df = (CourseStudentJoin)p;
+            var df = (SubjectStudentJoin)p;
 
-            Debug.WriteLine("\n\n === === === CoursesStudentsJoinViewModel === === ===");
+            Debug.WriteLine("\n\n === === === SubjectsStudentsJoinViewModel === === ===");
             Debug.WriteLine($"OnTestCommandExecuted(object p) -- p.NameStudent -- {df.NameStudent}");
         }
         #endregion
@@ -170,24 +165,24 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
         public void LoadDataTest()
         {
             // СalculationIndexs = this.DataContextApp.СalculationIndexes;
-            CoursesStudentsJoins = dc.CoursesStudentsJoins;
-            // return dc.Courses;
+            SubjectsStudentsJoins = dc.SubjectStudentsJoins;
+            // return dc.Subjects;
 
-            Debug.WriteLine($"\n\n === === === CoursesStudentsJoinViewModel === === === ");
+            Debug.WriteLine($"\n\n === === === SubjectsStudentsJoinViewModel === === === ");
             Debug.WriteLine($"LoadDataTest() ");
             // Debug.WriteLine($"СalculationIndexs.Count -- {СalculationIndexs.Count}");
         }
 
-        public ObservableCollection<CourseStudentJoin> GetCoursesStudentsJoin(Course course)
+        public ObservableCollection<SubjectStudentJoin> GetSubjectsStudentsJoin(Subject subject)
         {
-            int IdCourse = course.Id;
+            int IdSubject = subject.Id;
 
-            var res = CoursesStudentsJoins.Where(cSJ => cSJ.IdCourse == IdCourse).ToList();
-            var coursesStudentsJoins = new ObservableCollection<CourseStudentJoin>(res);
+            var res = SubjectsStudentsJoins.Where(cSJ => cSJ.IdSubject == IdSubject).ToList();
+            var subjectsStudentsJoins = new ObservableCollection<SubjectStudentJoin>(res);
 
-            return coursesStudentsJoins;
+            return subjectsStudentsJoins;
 
-            Debug.WriteLine($"\n\n === === === CoursesStudentsJoinViewModel === === === ");
+            Debug.WriteLine($"\n\n === === === SubjectsStudentsJoinViewModel === === === ");
             Debug.WriteLine($"LoadDataTest() ");
             // Debug.WriteLine($"СalculationIndexs.Count -- {СalculationIndexs.Count}");
         }

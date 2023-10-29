@@ -2,7 +2,7 @@
 
 namespace FacultyWpfApp1ButtonStudents.Models
 {
-    public class Course
+    public class Subject
     {
         public int Id { get; set; }
 

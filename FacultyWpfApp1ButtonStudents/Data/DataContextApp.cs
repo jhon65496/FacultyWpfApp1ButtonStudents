@@ -9,45 +9,17 @@ namespace FacultyWpfApp1ButtonStudents.Data
 {
     public class DataContextApp
     {
-        //private ObservableCollection<Course> _courses;
-
-        public ObservableCollection<Course> Courses { get; set; }
-        //{
-        //    get { return _courses; }
-        //    set { _courses = value; }
-        //}
-
-
-        //private ObservableCollection<Student> _students;
-
+        public ObservableCollection<Subject> Subjects { get; set; }
         public ObservableCollection<Student> Students { get; set; }
-        //{
-        //    get { return _students; }
-        //    set { _students = value; }
-        //}
+        public ObservableCollection<SubjectStudent> SubjectStudents { get; set; }
+        public ObservableCollection<SubjectStudentJoin> SubjectStudentsJoins { get; set; }
 
-
-        //private ObservableCollection<CourseStudent> _courseStudents;
-
-        public ObservableCollection<CourseStudent> CourseStudents { get; set; }
-        //{
-        //    get { return _courseStudents; }
-        //    set { _courseStudents = value; }
-        //}
-
-        //private ObservableCollection<CourseStudentJoin> _courseStudentJoin;
-
-        public ObservableCollection<CourseStudentJoin> CoursesStudentsJoins { get; set; }
-        //{
-        //    get { return _courseStudentJoin; }
-        //    set { _courseStudentJoin = value; }
-        //}
         public DataContextApp()
         {
-            GenerateDataCourses();
+            GenerateDataSubjects();
             GenerateDataStudents();
-            GenerateCourseStudent();
-            GenerateCourseStudentsJoin();
+            GenerateSubjectStudents();
+            GenerateSubjectStudentsJoins();
 
             Include();
         }
@@ -57,20 +29,20 @@ namespace FacultyWpfApp1ButtonStudents.Data
             foreach (var student in Students)
             {
                 int studentId = student.Id;
-                student.Courses = new ObservableCollection<Course>
+                student.Subjects = new ObservableCollection<Subject>
                 (
-                    CourseStudents
+                    SubjectStudents
                     .Where(cs => cs.StudentId == studentId)
-                    .Select(cs => Courses.Single(crs => crs.Id == cs.CourseId))
+                    .Select(cs => Subjects.Single(crs => crs.Id == cs.SubjectId))
                 );
             }
-            foreach (var course in Courses)
+            foreach (var subject in Subjects)
             {
-                int courceId = course.Id;
-                course.Students = new ObservableCollection<Student>
+                int courceId = subject.Id;
+                subject.Students = new ObservableCollection<Student>
                 (
-                    CourseStudents
-                    .Where(cs => cs.CourseId == courceId)
+                    SubjectStudents
+                    .Where(cs => cs.SubjectId == courceId)
                     .Select(cs => Students.Single(std => std.Id == cs.StudentId))
                 );
             }
@@ -80,27 +52,17 @@ namespace FacultyWpfApp1ButtonStudents.Data
 
 
         // ---- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-        public void GenerateDataCourses()
+        public void GenerateDataSubjects()
         {
-            Courses = new ObservableCollection<Course>
+            Subjects = new ObservableCollection<Subject>
             (
-                Enumerable.Range(1, 10).Select(i => new Course()
+                Enumerable.Range(1, 10).Select(i => new Subject()
                 {
                     Id = i,
-                    Name = $"NameCourse-{i}",
-                    Description = $"DescriptionCourses-{i}"
+                    Name = $"NameSubject-{i}",
+                    Description = $"DescriptionSubject-{i}"
                 })
             );
-            //for (int i = 1; i < 11; i++)
-            //{
-            //    var сourse = new Course()
-            //    {
-            //        IdCourse = i,
-            //        NameCourse = $"NameCourse-{i}",
-            //        Description = $"DescriptionCourses-{i}"
-            //    };
-            //    Courses.Add(сourse);
-            //}
         }
 
 
@@ -115,101 +77,53 @@ namespace FacultyWpfApp1ButtonStudents.Data
                     Description = $"DescriptionStudent-{i}"
                 }
             ));
-            //for (int i = 1; i < 101; i++)
-            //{
-            //    var provider = new Student()
-            //    {
-            //        IdStudent = i,
-            //        NameStudent = $"NameStudent-{i}",
-            //        Description = $"DescriptionStudent-{i}"
-            //    };
-            //    Students.Add(provider);
-            //}
         }
 
 
-        public void GenerateCourseStudent()
+        public void GenerateSubjectStudents()
         {
             Random random = new Random(12345678); // Для повторяемости результата
 
             // распределяем всех студентов по курсом псевдослучайным образом
-            CourseStudents = new ObservableCollection<CourseStudent>
+            SubjectStudents = new ObservableCollection<SubjectStudent>
             (
                 Students
                 .SelectMany
                 (
-                    std => Courses
+                    std => Subjects
                                  .OrderBy(crs => random.Next()) // Случайная сортировка предметов
                                  .Take(random.Next(1, 6))       // Получение первых случайных предметов
                                  .Select(sbj => (std, sbj))     // Получение сочетаний студент-предмет
                 )
                 .OrderBy(ss => random.Next())                   // Случайное перемешивание
-                .Select((ss, ind) => new CourseStudent()        // Получение сущностей сочетаний студент-предмет
+                .Select((ss, ind) => new SubjectStudent()        // Получение сущностей сочетаний студент-предмет
                                     {
-                                        IdCourseStudent = ind + 1,
-                                        CourseId = ss.sbj.Id,
+                                        Id = ind + 1,
+                                        SubjectId = ss.sbj.Id,
                                         StudentId = ss.std.Id
                                     }
                         )
             );
-
-            //int idCourseStudent = 1;
-            //int courseCurrentStudent = 1;
-
-
-            //for (int iC = 3; iC < 11; iC++)                                 // Course
-            //{
-            //    int step = 10;
-            //    int courseFirstStudent = courseCurrentStudent;
-            //    int courseLastStudent = courseFirstStudent + step;
-
-            //    for (int iS = courseFirstStudent; iS < courseLastStudent; iS++) // Student
-            //    {
-            //        // idIndexProvider         
-            //        var indexProveder = new CourseStudent()
-            //        {
-            //            IdCourseStudent = idCourseStudent,
-            //            CourseId = iC,
-            //            StudentId = iS
-            //        };
-            //        CourseStudents.Add(indexProveder);
-            //        idCourseStudent++;
-            //    }
-            //    courseCurrentStudent = courseLastStudent++;
-            //}
-
         }
 
 
 
-        public void AddCourseStudent()
+        public void AddSubjectStudent()
         {
             // in development
         }
 
 
 
-        public void GenerateCourseStudentsJoin()
+        public void GenerateSubjectStudentsJoins()
         {
-            //var CourseStudentsJoin = CourseStudents.Join(Students,
-            //     cS => cS.StudentId,
-            //     s => s.Id,
-            //    (cS, s) => new CourseStudentJoin
-            //    {
-            //        IdCourseStudent = cS.IdCourseStudent,
-            //        IdCourse = cS.CourseId,
-            //        IdStudent = cS.StudentId,
-
-            //        NameStudent = s.Name
-            //    }).ToList();
-
-            CoursesStudentsJoins = new ObservableCollection<CourseStudentJoin>(CourseStudents.Select
+            SubjectStudentsJoins = new ObservableCollection<SubjectStudentJoin>(SubjectStudents.Select
             (
                 cs =>
-                new CourseStudentJoin
+                new SubjectStudentJoin
                 {
-                    IdCourseStudent = cs.IdCourseStudent,
-                    IdCourse = cs.CourseId,
+                    IdSubjectStudent = cs.Id,
+                    IdSubject = cs.SubjectId,
                     IdStudent = cs.StudentId,
 
                     NameStudent = Students.Single(std => std.Id == cs.StudentId).Name
@@ -217,7 +131,7 @@ namespace FacultyWpfApp1ButtonStudents.Data
             );
         }
 
-        public void AddCourseStudentView()
+        public void AddSubjectStudentView()
         {
             // in development
         }
