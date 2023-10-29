@@ -39,7 +39,8 @@
                     </Grid.RowDefinitions>
 
                     <GroupBox Grid.Row="0" Header="SubjectsView">
-                        <ContentControl Content="{Binding SubjectsView}"/>
+                        <!--<ContentControl Content="{Binding SubjectsView}"/>-->
+                        <v:SubjectsView/>
                     </GroupBox>
                     <!--  GridSplitter Горзонтальный -->
                     <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
@@ -51,7 +52,8 @@
                 </Grid>
 
                 <GroupBox Grid.Column="1" Header="Students">
-                    <ContentControl Content="{Binding StudentsView}"/>
+                    <!--<ContentControl Content="{Binding StudentsView}"/>-->
+                    <v:StudentsView/>
                 </GroupBox>
                 <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3"/>
             </Grid>

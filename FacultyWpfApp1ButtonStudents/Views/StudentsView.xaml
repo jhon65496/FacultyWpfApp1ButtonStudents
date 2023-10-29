@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:FacultyWpfApp1ButtonStudents.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>        
-        <DataGrid Grid.Row="1" 
-                    ItemsSource="{Binding StudentsView}"                                              
-                    SelectedItem="{}"                          
+    <!--<DockPanel>-->
+    <DataGrid Grid.Row="1" 
+                    ItemsSource="{Binding Source={StaticResource students}}"                                              
+                    SelectedItem="{Binding SelectedStudent}"                          
                     SelectedIndex="2"
                     x:Name="MainDataGrid"                                         
                     AutoGenerateColumns="False"                                  
@@ -17,24 +17,24 @@
                     GridLinesVisibility="Vertical"                                  
                     VerticalGridLinesBrush="DarkGray"
                     AlternatingRowBackground="LightGray">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="AddInSubjectsStudentsJoinView" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="5,0"
+        <DataGrid.Columns>
+            <DataGridTemplateColumn>
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Content="AddInSubjectsStudentsJoinView" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="5,0"
                                     Background="Transparent" 
                                     BorderThickness="0" 
                                     Foreground="Green"
                                     FontWeight="Bold"
                                     Command=""
                                     CommandParameter=""/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="IdStudent" Binding="{Binding IdStudent}" Width="Auto"/>
-                <DataGridTextColumn Header="NameStudent" Binding="{Binding NameStudent}"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}"  Width="*"/>                
-            </DataGrid.Columns>
-        </DataGrid>
-    </DockPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="IdStudent" Binding="{Binding Id}" Width="Auto"/>
+            <DataGridTextColumn Header="NameStudent" Binding="{Binding Name}"/>
+            <DataGridTextColumn Header="Description" Binding="{Binding Description}"  Width="*"/>
+        </DataGrid.Columns>
+    </DataGrid>
+    <!--</DockPanel>-->
 </UserControl>

@@ -2,6 +2,7 @@
 using FacultyWpfApp1ButtonStudents.Models;
 using FacultyWpfApp1ButtonStudents.Views;
 using Simplified;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace FacultyWpfApp1ButtonStudents.ViewModels
@@ -14,39 +15,43 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
         private readonly SubjectsStudentsJoinViewModel subjectsStudentsJoinViewModel;
         private readonly StudentsViewModel studentsViewModel;
 
+        public IList<Student> Students => dc.Students;
+        public IList<Subject> Subjects => dc.Subjects;
+
         public MainWindowViewModel()
         {
             this.dc = new DataContextApp();
 
             // SubjectsViewModel
             this.subjectsViewModel = new SubjectsViewModel(this);
-            subjectsViewModel.LoadDataTest();
+            //subjectsViewModel.LoadDataTest();
 
-            SubjectsView cView = new SubjectsView();
-            cView.DataContext = subjectsViewModel;
-            SubjectsView = subjectsViewModel;
+            //SubjectsView cView = new SubjectsView();
+            //cView.DataContext = subjectsViewModel;
+            //SubjectsView = subjectsViewModel;
 
             // SubjectsStudentsJoinViewModel
             subjectsStudentsJoinViewModel = new SubjectsStudentsJoinViewModel(this);
-            subjectsStudentsJoinViewModel.LoadDataTest();
+            //subjectsStudentsJoinViewModel.LoadDataTest();
 
-            SubjectsStudentsJoinView csView = new SubjectsStudentsJoinView();
-            csView.DataContext = subjectsStudentsJoinViewModel;
-            SubjectsStudentsJoinView = subjectsStudentsJoinViewModel;
+            //SubjectsStudentsJoinView csView = new SubjectsStudentsJoinView();
+            //csView.DataContext = subjectsStudentsJoinViewModel;
+            //SubjectsStudentsJoinView = subjectsStudentsJoinViewModel;
 
             // StudentsViewModel
             studentsViewModel = new StudentsViewModel(this.dc);
-            studentsViewModel.LoadDataTest();
+            //studentsViewModel.LoadDataTest();
 
-            StudentsView sView = new StudentsView();
-            sView.DataContext = studentsViewModel;
-            this.StudentsView = studentsViewModel;
+            //StudentsView sView = new StudentsView();
+            //sView.DataContext = studentsViewModel;
+            //this.StudentsView = studentsViewModel;
 
 
             // Prop
             // this.SelectedSubject = subjectsViewModel.SelectedSubject;
         }
 
+        public Student SelectedStudent { get => Get<Student>(); set => Set(value); }
 
         // SelectedSubject
         //private Subject selectedSubject;

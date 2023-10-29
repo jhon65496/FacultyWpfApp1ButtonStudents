@@ -7,13 +7,10 @@
              mc:Ignorable="d"              
              d:DesignHeight="450" d:DesignWidth="400"
              xmlns:vm ="clr-namespace:FacultyWpfApp1ButtonStudents.ViewModels">
-    <d:UserControl.DataContext>
-        <vm:SubjectsViewModel/>
-    </d:UserControl.DataContext>
-    
-    <!--<DockPanel>-->        
-        <DataGrid Grid.Row="1" 
-                    ItemsSource="{Binding Subjects}"                                              
+
+    <!--<DockPanel>-->
+    <DataGrid Grid.Row="1" 
+                    ItemsSource="{Binding Source={StaticResource subjects}}"                                              
                     SelectedItem="{Binding SelectedSubject}"                          
                     SelectedIndex="2"
                     x:Name="MainDataGrid"                                         
@@ -21,12 +18,14 @@
                     CanUserAddRows="True"
                     GridLinesVisibility="Vertical"                                  
                     VerticalGridLinesBrush="DarkGray"
-                    AlternatingRowBackground="LightGray">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="IdSubject" Binding="{Binding Id}" Width="Auto"/>
-                <DataGridTextColumn Header="NameSubject" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}"  Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                    AlternatingRowBackground="LightGray"
+                    SelectionMode="Single"
+                    SelectionChanged="OnSelectedSubjectChanged">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="IdSubject" Binding="{Binding Id}" Width="Auto"/>
+            <DataGridTextColumn Header="NameSubject" Binding="{Binding Name}"/>
+            <DataGridTextColumn Header="Description" Binding="{Binding Description}"  Width="*"/>
+        </DataGrid.Columns>
+    </DataGrid>
     <!--</DockPanel>-->
 </UserControl>

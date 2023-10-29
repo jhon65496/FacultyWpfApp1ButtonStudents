@@ -1,12 +1,4 @@
-﻿using FacultyWpfApp1ButtonStudents;
-using FacultyWpfApp1ButtonStudents.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace FacultyWpfApp1ButtonStudentsStudents
 {
