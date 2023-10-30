@@ -3,7 +3,10 @@ using FacultyWpfApp1ButtonStudents.Models;
 using FacultyWpfApp1ButtonStudents.Views;
 using Simplified;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace FacultyWpfApp1ButtonStudents.ViewModels
 {
@@ -17,6 +20,8 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
 
         public IList<Student> Students => dc.Students;
         public IList<Subject> Subjects => dc.Subjects;
+        
+        // private readonly ICollectionView noSubjectStudents;
 
         public MainWindowViewModel()
         {
@@ -45,7 +50,8 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             //StudentsView sView = new StudentsView();
             //sView.DataContext = studentsViewModel;
             //this.StudentsView = studentsViewModel;
-
+            
+            // noSubjectStudents = ((CollectionViewSource)FindResource(nameof(noSubjectStudents))).View;
 
             // Prop
             // this.SelectedSubject = subjectsViewModel.SelectedSubject;
@@ -83,6 +89,21 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
         //}
 
 
+
+        #region DeleteStudentCommand. Команда.
+        private ICommand _deleteStudentCommand;
+        public ICommand DeleteStudentCommand => _deleteStudentCommand ?? (_deleteStudentCommand = new RelayCommand(OnDeleteStudent));
+        #endregion
+
+        #region Секция методов
+        private void OnDeleteStudent(object parameter)
+        {
+            var student = (Student)parameter;
+
+            Students.Remove(student);
+            SelectedSubject.Students.Remove(student);
+        }
+        #endregion
         /// <summary>
         /// View
         /// </summary>

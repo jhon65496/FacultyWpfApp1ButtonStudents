@@ -45,17 +45,29 @@
                     <!--  GridSplitter Горзонтальный -->
                     <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
                     <!--  GridSplitter Горзонтальный -->
-    <GroupBox Grid.Row="2" Header="SubjectsStudentsJoinView">
-        <!--<ContentControl Content="{Binding SubjectsStudentsJoinView}"/>-->
-        <DataGrid ItemsSource="{Binding Source={StaticResource subjectStudents}}"
-                    AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-    </GroupBox>
+                    <GroupBox Grid.Row="2" Header="SubjectsStudentsJoinView">
+                        <!--<ContentControl Content="{Binding SubjectsStudentsJoinView}"/>-->
+                        <DataGrid ItemsSource="{Binding Source={StaticResource subjectStudents}}"
+                                  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="X" HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Top" Padding="5,0"
+                                                    Background="Transparent" BorderThickness="0" Foreground="Red"
+                                                    FontWeight="Bold"
+                                                    Command="{Binding DataContext.DeleteStudentCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
 
                 </Grid>
 

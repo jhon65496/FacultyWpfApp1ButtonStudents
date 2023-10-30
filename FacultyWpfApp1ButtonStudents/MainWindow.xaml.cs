@@ -1,5 +1,8 @@
-﻿using System;
+﻿using FacultyWpfApp1ButtonStudents.Models;
+using Simplified;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace FacultyWpfApp1ButtonStudents
 {
@@ -19,10 +23,10 @@ namespace FacultyWpfApp1ButtonStudents
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {        
         public MainWindow()
         {
             InitializeComponent();
-        }
+        }        
     }
 }
