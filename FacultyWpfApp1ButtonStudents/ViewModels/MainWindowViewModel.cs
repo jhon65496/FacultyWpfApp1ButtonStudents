@@ -3,6 +3,7 @@ using FacultyWpfApp1ButtonStudents.Models;
 using FacultyWpfApp1ButtonStudents.Views;
 using Simplified;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Data;
@@ -50,12 +51,30 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             //StudentsView sView = new StudentsView();
             //sView.DataContext = studentsViewModel;
             //this.StudentsView = studentsViewModel;
-            
+
             // noSubjectStudents = ((CollectionViewSource)FindResource(nameof(noSubjectStudents))).View;
 
             // Prop
             // this.SelectedSubject = subjectsViewModel.SelectedSubject;
+
+            StudentsObsC = new ObservableCollection<Student>(Students);
         }
+
+        // public ObservableCollection<Student> StudentsObsC { get; set; }
+
+        private ObservableCollection<Student> _studentsObsC;
+
+        public ObservableCollection<Student> StudentsObsC
+        {
+            get { return _studentsObsC; }
+            set 
+            {   
+                _studentsObsC = value;
+
+                
+            }
+        }
+
 
         public Student SelectedStudent { get => Get<Student>(); set => Set(value); }
 

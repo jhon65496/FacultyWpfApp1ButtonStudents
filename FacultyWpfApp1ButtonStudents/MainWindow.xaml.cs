@@ -1,4 +1,5 @@
 ﻿using FacultyWpfApp1ButtonStudents.Models;
+using FacultyWpfApp1ButtonStudents.ViewModels;
 using Simplified;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,37 @@ namespace FacultyWpfApp1ButtonStudents
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {        
+    {
+        //private readonly ICollectionView subjectStudents;
+        //private readonly ICollectionView noSubjectStudents;
+        //private readonly MainWindowViewModel mainVM;
+
         public MainWindow()
         {
+            //mainVM = ((MainWindowViewModel)FindResource(nameof(mainVM)));
+            //subjectStudents = ((CollectionViewSource)FindResource(nameof(subjectStudents))).View;
+            //noSubjectStudents = ((CollectionViewSource)FindResource(nameof(noSubjectStudents))).View;
+
             InitializeComponent();
-        }        
+        }
+
+        //private void OnSelectedSubjectChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (mainVM.SelectedSubject is not Subject subject)
+        //    {
+        //        subjectStudents.Filter = _ => false;
+        //        noSubjectStudents.Filter = null;
+        //    }
+        //    else
+        //    {
+        //        subjectStudents.Filter = obj =>
+        //                obj is Student student &&
+        //                student.Subjects.Any(sbj => sbj.Id == subject.Id);
+        //        noSubjectStudents.Filter = obj =>
+        //                obj is Student student &&
+        //                student.Subjects.All(sbj => sbj.Id != subject.Id);
+        //    }
+        //}
+
     }
 }

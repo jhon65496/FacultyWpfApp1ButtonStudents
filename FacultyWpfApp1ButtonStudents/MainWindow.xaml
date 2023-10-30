@@ -60,8 +60,8 @@
                                                     VerticalAlignment="Top" Padding="5,0"
                                                     Background="Transparent" BorderThickness="0" Foreground="Red"
                                                     FontWeight="Bold"
-                                                    Command="{Binding DataContext.DeleteStudentCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                    CommandParameter="{Binding}"/>
+                                                    Command="{}"
+                                                    CommandParameter="{}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
