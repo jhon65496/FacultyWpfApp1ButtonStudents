@@ -47,7 +47,9 @@
                     <!--  GridSplitter Горзонтальный -->
                     <GroupBox Grid.Row="2" Header="SubjectsStudentsJoinView">
                         <!--<ContentControl Content="{Binding SubjectsStudentsJoinView}"/>-->
-                        <DataGrid ItemsSource="{Binding Source={StaticResource subjectStudents}}"
+                        <!--<DataGrid ItemsSource="{Binding Source={StaticResource StudentsProxy}}"
+                                  AutoGenerateColumns="False">-->
+                        <DataGrid ItemsSource="{Binding StudentsProxy}"
                                   AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>

@@ -3,6 +3,7 @@ using FacultyWpfApp1ButtonStudents.Models;
 using FacultyWpfApp1ButtonStudents.Views;
 using Simplified;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Data;
@@ -20,7 +21,15 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
 
         public IList<Student> Students => dc.Students;
         public IList<Subject> Subjects => dc.Subjects;
-        
+
+        //  public IList<Student> StudentsProxy;
+
+        // public ICollectionView StudentsProxy;
+          public CollectionViewSource StudentsProxy;
+        // public ObservableCollection<Student> StudentsProxy;
+
+        public IList<Student> NoStudentsProxy;
+
         // private readonly ICollectionView noSubjectStudents;
 
         public MainWindowViewModel()

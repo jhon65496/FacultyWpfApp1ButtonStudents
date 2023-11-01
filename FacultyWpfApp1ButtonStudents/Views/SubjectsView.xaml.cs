@@ -1,5 +1,6 @@
 ﻿using FacultyWpfApp1ButtonStudents.Models;
 using FacultyWpfApp1ButtonStudents.ViewModels;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
@@ -36,9 +37,13 @@ namespace FacultyWpfApp1ButtonStudents.Views
                 subjectStudents.Filter = obj =>
                         obj is Student student &&
                         student.Subjects.Any(sbj => sbj.Id == subject.Id);
+                
+                // mainVM.StudentsProxy.View = subjectStudents;
+                
                 noSubjectStudents.Filter = obj =>
                         obj is Student student &&
                         student.Subjects.All(sbj => sbj.Id != subject.Id);
+                var df  = subjectStudents;
             }
         }
     }
