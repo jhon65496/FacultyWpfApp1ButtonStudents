@@ -50,7 +50,8 @@
                         <!--<DataGrid ItemsSource="{Binding Source={StaticResource StudentsProxy}}"
                                   AutoGenerateColumns="False">-->
                         <DataGrid ItemsSource="{Binding StudentsProxy}"
-                                  AutoGenerateColumns="False">
+                                  AutoGenerateColumns="False"
+                                  x:Name = "MainDataGrid">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
