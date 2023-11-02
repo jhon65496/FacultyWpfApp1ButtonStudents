@@ -26,30 +26,17 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             // CoursesViewModel
             this.coursesViewModel = new CoursesViewModel(this);
             coursesViewModel.LoadDataTest();
-
-            CoursesView cView = new CoursesView();
-            cView.DataContext = coursesViewModel;
-            CoursesView = coursesViewModel;
-
+            this.CoursesView = coursesViewModel;
+            
             // CoursesStudentsJoinViewModel
             coursesStudentsJoinViewModel = new CoursesStudentsJoinViewModel(this);
             coursesStudentsJoinViewModel.LoadDataTest();
-
-            CoursesStudentsJoinView csView = new CoursesStudentsJoinView();
-            csView.DataContext = coursesStudentsJoinViewModel;
-            CoursesStudentsJoinView = coursesStudentsJoinViewModel;
+            this.CoursesStudentsJoinView = coursesStudentsJoinViewModel;
 
             // StudentsViewModel
             studentsViewModel = new StudentsViewModel(this.dc);
             studentsViewModel.LoadDataTest();
-
-            StudentsView sView = new StudentsView();
-            sView.DataContext = studentsViewModel;
             this.StudentsView = studentsViewModel;
-
-
-            // Prop
-            // this.SelectedCourse = coursesViewModel.SelectedCourse;
         }
 
 

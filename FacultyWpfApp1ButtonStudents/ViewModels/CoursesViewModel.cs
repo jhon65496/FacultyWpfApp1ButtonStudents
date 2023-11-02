@@ -33,9 +33,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             get { return _courses; }
             set 
             { 
-                _courses = value;
-                
-                
+                _courses = value;                
 
                 RaisePropertyChanged(nameof(Courses));
             }
