@@ -49,9 +49,8 @@
                         <!--<ContentControl Content="{Binding SubjectsStudentsJoinView}"/>-->
                         <!--<DataGrid ItemsSource="{Binding Source={StaticResource StudentsProxy}}"
                                   AutoGenerateColumns="False">-->
-                        <DataGrid ItemsSource="{Binding StudentsProxy}"
-                                  AutoGenerateColumns="False"
-                                  x:Name = "MainDataGrid">
+                        <DataGrid ItemsSource="{Binding StudentsProxy, UpdateSourceTrigger=PropertyChanged}"
+                                  AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>

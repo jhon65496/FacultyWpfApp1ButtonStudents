@@ -38,12 +38,12 @@ namespace FacultyWpfApp1ButtonStudents.Views
                         obj is Student student &&
                         student.Subjects.Any(sbj => sbj.Id == subject.Id);
                 
-                // mainVM.StudentsProxy.View = subjectStudents;
-                
+                mainVM.StudentsProxy = subjectStudents;
+                var fg = subjectStudents;
                 noSubjectStudents.Filter = obj =>
                         obj is Student student &&
                         student.Subjects.All(sbj => sbj.Id != subject.Id);
-                var df  = subjectStudents;
+                
             }
         }
     }

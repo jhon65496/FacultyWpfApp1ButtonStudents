@@ -24,8 +24,35 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
 
         //  public IList<Student> StudentsProxy;
 
-        // public ICollectionView StudentsProxy;
-          public CollectionViewSource StudentsProxy;
+           // public ICollectionView StudentsProxy;
+        private ICollectionView _studentsProxy;
+
+        public ICollectionView StudentsProxy
+        {
+            get { return _studentsProxy; }
+            set 
+            {
+               _studentsProxy = value;
+               // OnPropertyChanged(nameof(StudentsProxy));
+               if (_studentsProxy == null)
+                    return;
+
+               Debug.WriteLine($"ICollectionView StudentsProxy");
+               // OnPropertyChanged(nameof(StudentsProxy));
+               // OnPropertyChanged(nameof(StudentsProxy), _studentsProxy, value);
+               Set(ref _studentsProxy, value);
+            }
+        }
+        /*
+         * public Book SelectedBook 
+            { 
+              get => _SelectedBook; 
+              set => Set(ref _SelectedBook, value); 
+            }
+         */
+
+
+        // public CollectionViewSource StudentsProxy;
         // public ObservableCollection<Student> StudentsProxy;
 
         public IList<Student> NoStudentsProxy;

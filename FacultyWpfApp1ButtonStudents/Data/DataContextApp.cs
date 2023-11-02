@@ -18,10 +18,12 @@ namespace FacultyWpfApp1ButtonStudents.Data
         {
             GenerateDataSubjects();
             GenerateDataStudents();
-            GenerateSubjectStudents();
-            GenerateSubjectStudentsJoins();
+            // GenerateSubjectStudents();
+            // GenerateSubjectStudents2();
+            // GenerateSubjectStudentsJoins();
 
-            Include();
+            // Include();
+            Include2();
         }
 
         private void Include()
@@ -45,6 +47,51 @@ namespace FacultyWpfApp1ButtonStudents.Data
                     .Where(cs => cs.SubjectId == courceId)
                     .Select(cs => Students.Single(std => std.Id == cs.StudentId))
                 );
+            }
+        }
+
+        private void Include2()
+        {
+            int step = 4;
+            int iStart = 1;
+            int iFinish = 5;
+            // int iLast = 1;
+
+            foreach (var student in Students)
+            {                
+                int studentId = student.Id;
+                student.Subjects = new ObservableCollection<Subject>
+                (
+                   // Subjects.Select(cs => cs.Id >= 6)
+                   Subjects.Where(cs => cs.Id >= iStart && cs.Id <= iFinish)                   
+                );
+
+                if (iFinish == 9)
+                {
+                    iStart = 1;
+                    iFinish = 5;
+                }
+                else
+                {
+                    iStart = iStart + step;
+                    iFinish = iFinish + step;
+                }
+                
+            }
+
+            int stepStd = 9;
+            int iStartIdStd = 1;
+            int iFinishIdStd = 9;
+            foreach (var subject in Subjects)
+            {
+                int courceId = subject.Id;
+                subject.Students = new ObservableCollection<Student>
+                (
+                    Students.Where(cs => cs.Id >= iStartIdStd && cs.Id <= iFinishIdStd)
+                );
+
+                iStartIdStd = iStartIdStd + stepStd;
+                iFinishIdStd = iFinishIdStd + stepStd;
             }
         }
 
@@ -103,6 +150,25 @@ namespace FacultyWpfApp1ButtonStudents.Data
                                         StudentId = ss.std.Id
                                     }
                         )
+            );
+        }
+
+        public void GenerateSubjectStudents2()
+        {
+            // распределяем всех студентов по курсам
+            SubjectStudents = new ObservableCollection<SubjectStudent>
+            (
+                Students
+                .SelectMany
+                (
+                    std => Subjects.Select(sbj => (std, sbj))     // Получение сочетаний студент-предмет
+                )                
+                .Select((ss, ind) => new SubjectStudent()        // Получение сущностей сочетаний студент-предмет
+                {
+                    Id = ind + 1,
+                    SubjectId = ss.sbj.Id,
+                    StudentId = ss.std.Id
+                })
             );
         }
 
