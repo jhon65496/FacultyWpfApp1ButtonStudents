@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 
 namespace FacultyWpfApp1ButtonStudents.ViewModels
-{   
+{
     class StudentsViewModel : BaseVM
     {
         // MainWindowViewModel mainWindowViewModel;
@@ -19,7 +19,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
         // ctor
         public StudentsViewModel(DataContextApp dc)
         {
-           //  this.mainWindowViewModel = mainWindowViewModel;
+            //  this.mainWindowViewModel = mainWindowViewModel;
 
             this.dc = dc;
         }
@@ -31,11 +31,11 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
         public ObservableCollection<Student> Students
         {
             get { return _students; }
-            set 
+            set
             {
                 _students = value;
-                
-                
+
+
 
                 RaisePropertyChanged(nameof(Students));
             }
@@ -68,7 +68,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             set
             {
                 _selectedStudent = value;
-                Debug.WriteLine("\n\n === === === CoursesViewModel.SelectedCourse === === ===");                
+                Debug.WriteLine("\n\n === === === CoursesViewModel.SelectedCourse === === ===");
                 if (SelectedStudent == null)
                 {
                     Debug.WriteLine($"SelectedCourse = null !!!");
@@ -89,7 +89,7 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
 
             Debug.WriteLine($"\n\n === === === CoursesViewModel === === === ");
             Debug.WriteLine($"LoadDataTest()");
-            
+
         }
 
         public void LoadDataUnion(ObservableCollection<CourseStudentJoin> courseStudentJoin)
@@ -98,9 +98,13 @@ namespace FacultyWpfApp1ButtonStudents.ViewModels
             // var result = Students.Where(cSJ => !courseStudentJoin
             //                     .Select(s => s.IdStudent).Contains(cSJ.IdStudent));
 
-            StudentsView = new ObservableCollection<Student>(Students
-                                .Where(cSJ => !courseStudentJoin
-                                    .Select(s => s.IdStudent).Contains(cSJ.IdStudent)));
+            // Solut-2
+            var result = Students.Where(cSJ => !courseStudentJoin.Select(s => s.IdStudent).Contains(cSJ.IdStudent));
+            StudentsView = new ObservableCollection<Student>(result);
+
+            // Solut-1
+            // StudentsView = new ObservableCollection<Student>(Students
+            //                    .Where(cSJ => !courseStudentJoin.Select(s => s.IdStudent).Contains(cSJ.IdStudent)));
 
             Debug.WriteLine($"\n\n=== === === ProvidersViewModel === === ===");
             Debug.WriteLine($"LoadDataUnion(...)  ");

@@ -42,9 +42,10 @@
                     </GroupBox>
                     <!--  GridSplitter Горзонтальный -->
                     <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="3"/>
-                    <!--  GridSplitter Горзонтальный -->
+
+                    <!--  CoursesStudentsJoinVie -->
                     <GroupBox Grid.Row="2" Header="CoursesStudentsJoinView">
-                        <ContentControl Content="{Binding CoursesStudentsJoinView}"/>
+                        <!--<ContentControl Content="{Binding CoursesStudentsJoinView}"/>-->
                     </GroupBox>
 
                 </Grid>
